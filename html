@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>每日占卜</title>
+  <style>
+    /* 基本樣式 */
+    body, html {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      background: #1a1a1a;
+      color: white;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+    .container {
+      width: 100%;
+      max-width: 1000px;
+      height: 100%;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .active {
+      display: flex;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1.2em;
+      margin-top: 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      background: linear-gradient(45deg, #6b4ca1, #bd4c94);
+    }
+    button:hover {
+      background: linear-gradient(45deg, #bd4c94, #6b4ca1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頁面一：首頁 -->
+  <div id="page1" class="container active">
+    <h1>命運之門</h1>
+    <p>探索命運，揭開星辰的祕密。</p>
+    <button onclick="goToPage(2)">開始占卜</button>
+  </div>
+
+  <!-- 頁面二：占卜選擇頁 -->
+  <div id="page2" class="container">
+    <h2>選擇你的占卜</h2>
+    <button onclick="selectReading('愛情')">愛情</button>
+    <button onclick="selectReading('事業')">事業</button>
+    <button onclick="selectReading('財富')">財富</button>
+    <button onclick="goToPage(3)">揭開結果</button>
+  </div>
+
+  <!-- 頁面三：結果頁 -->
+  <div id="page3" class="container">
+    <h2>你的占卜結果</h2>
+    <p id="result">...</p>
+    <button onclick="goToPage(2)">再試一次</button>
+    <button onclick="shareResult()">分享結果</button>
+  </div>
+
+  <script>
+    // 用來切換頁面顯示
+    function goToPage(pageNumber) {
+      document.querySelectorAll('.container').forEach((page) => page.classList.remove('active'));
+      document.getElementById(`page${pageNumber}`).classList.add('active');
+    }
+
+    // 設定占卜結果
+    let selectedReading = '';
+    function selectReading(type) {
+      selectedReading = type;
+    }
+
+    function goToPage(pageNumber) {
+      if (pageNumber === 3) {
+        // 在結果頁顯示占卜結果
+        document.getElementById('result').textContent = `你的${selectedReading}運勢：順利且充滿驚喜！`;
+      }
+      document.querySelectorAll('.container').forEach((page) => page.classList.remove('active'));
+      document.getElementById(`page${pageNumber}`).classList.add('active');
+    }
+
+    // 分享結果功能 (簡單提示示範)
+    function shareResult() {
+      alert(`已分享您的${selectedReading}占卜結果！`);
+    }
+  </script>
+</body>
+</html>
